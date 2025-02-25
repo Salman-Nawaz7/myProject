@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <title>Login</title>
+  <style>
+    .red {
+      color: rgb(172, 30, 124);
+
+    }
+
+    .yellow {
+      color: rgb(179, 176, 11);
+
+    }
+
+    body {
+      font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div
+    style="width: 30%; margin: auto; margin-top: 10%; padding: 3%; background-color: aqua; border: 2px,rgb(71, 71, 253),solid; border-radius: 15px;">
+    <h3>Login Page</h3>
+    <form>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required
+          autofocus="autofocus">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" required>
+      </div>
+
+      <button type="button" class="btn btn-primary" onclick="myFunction()">Submit</button>
+      <button type="reset" class="btn btn-secondary ">Reset</button>
+      <a href="register.html"><button type="button" class="btn btn-success ">Go To Register</button></a>
+    </form>
+
+  </div>
+
+  <!-- <input username id="name_2" type="text" placeholder="name" name="name_2" required="required" autofocus="autofocus"> -->
+  <script>
+    function myFunction() {
+      var email = document.getElementById("exampleInputEmail1").value;
+      var password = document.getElementById("exampleInputPassword1").value;
+
+      var size = localStorage.length;
+      let value;
+      for (let i = 1; i <= size; i++) {
+        var newemail = localStorage.getItem(i);
+        console.log(newemail);
+        const obj = JSON.parse(newemail);
+        let getemail = obj.email;
+        let getpassword = obj.password;
+
+
+
+
+        if (email == getemail && password == getpassword) {
+          value = 1;
+          localStorage.setItem("AuthenticationState", "Authenticated");
+
+          //This authentication key will expire in 1 hour.
+          // let d = new Date()
+          // let d2 = new Date(d)
+          // d2.setMinutes(d.getMinutes() + 10);
+          // localStorage.setItem("AuthenticationExpires", d2);
+
+          //Push the user over to the next page.
+          window.open('datapage.html', '_self');
+          // window.open(
+          //         `datapage.html?id=${i}&email=${email}`, "_blank");
+          break;
+
+        }
+
+      }
+      if (value != 1) {
+
+        // alert("Error Email or Password is Wrong...")
+        // swal("Error Email or Password is Wrong...");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Error Email or Password is Wrong..."
+        });
+
+      }
+
+
+    }
+    Date.prototype.addHours = function (h) {
+      this.setTime(this.getTime() + (h * 60 * 60 * 1000));
+      return this;
+    }
+    // 
+    // 
+
+
+  </script>
+
+</body>
